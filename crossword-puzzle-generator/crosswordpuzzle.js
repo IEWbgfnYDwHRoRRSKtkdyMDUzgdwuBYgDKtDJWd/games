@@ -7,7 +7,7 @@ function CrosswordPuzzle() {
         }
     }
 
-    let update = function(word) {
+    let update = function (word) {
         let updated = false;
         if (canBePlaced(word)) {
             addWord(word);
@@ -17,7 +17,7 @@ function CrosswordPuzzle() {
         return updated;
     }
 
-    let canBePlaced = function(word) {
+    let canBePlaced = function (word) {
         let canBePlaced = true;
         if (isValidPosition(word.row, word.column) && fitsOnGrid(word)) {
             let index = 0;
@@ -41,7 +41,7 @@ function CrosswordPuzzle() {
         return canBePlaced;
     }
 
-    let getIntersections = function() {
+    let getIntersections = function () {
         let intersections = 0;
         for (let row = 0; row < gridSize; row++) {
             for (let column = 0; column < gridSize; column++) {
@@ -62,7 +62,7 @@ function CrosswordPuzzle() {
         return intersections;
     }
 
-    let placementLegal = function(word, row, column) {
+    let placementLegal = function (word, row, column) {
         let illegal = false;
         if (word.vertical) {
             illegal = isInterference(row, column + 1, row + 1, column) ||
@@ -80,7 +80,7 @@ function CrosswordPuzzle() {
         return !illegal;
     }
 
-    let invadingTerritory = function(word, row, column) {
+    let invadingTerritory = function (word, row, column) {
         let invading = false;
         let empty = isEmptyCell(row, column)
         if (word.vertical) {
@@ -101,7 +101,7 @@ function CrosswordPuzzle() {
         return invading;
     }
 
-    let endOfWord = function(word, row, column) {
+    let endOfWord = function (word, row, column) {
         if (word.vertical) {
             return word.row + word.text.length - 1 === row;
         } else {
@@ -109,41 +109,41 @@ function CrosswordPuzzle() {
         }
     }
 
-    let doesCharacterExist = function(row, column) {
+    let doesCharacterExist = function (row, column) {
         return isValidPosition(row, column) &&
             isLetter(row, column);
     }
 
-    let overwritingHorizontalWord = function(row, column) {
+    let overwritingHorizontalWord = function (row, column) {
         let leftColumn = column - 1;
         return (isValidPosition(row, leftColumn) &&
             isLetter(row, column) &&
             isLetter(row, leftColumn));
     }
 
-    let overwritingVerticalWord = function(row, column) {
+    let overwritingVerticalWord = function (row, column) {
         let rowAbove = row - 1;
         return (isValidPosition(rowAbove, column) &&
             isLetter(row, column) &&
             isLetter(rowAbove, column));
     }
 
-    let isInterference = function(row, column, nextRow, nextColumn) {
+    let isInterference = function (row, column, nextRow, nextColumn) {
         return isValidPosition(row, column) &&
             isValidPosition(nextRow, nextColumn) &&
             isLetter(row, column) &&
             isLetter(nextRow, nextColumn);
     }
 
-    let isLetter = function(row, column) {
+    let isLetter = function (row, column) {
         return grid[row][column] !== emptyCell;
     }
 
-    let isEmptyCell = function(row, column) {
+    let isEmptyCell = function (row, column) {
         return !isLetter(row, column);
     }
 
-    let addWord = function(word) {
+    let addWord = function (word) {
         for (let letterIndex = 0; letterIndex < word.text.length; ++letterIndex) {
             let row = word.row;
             let column = word.column;
@@ -157,7 +157,7 @@ function CrosswordPuzzle() {
         }
     }
 
-    let fitsOnGrid = function(word) {
+    let fitsOnGrid = function (word) {
         if (word.vertical) {
             return word.row + word.text.length <= gridSize;
         } else {
@@ -165,7 +165,7 @@ function CrosswordPuzzle() {
         }
     }
 
-    let isValidPosition = function(row, column) {
+    let isValidPosition = function (row, column) {
         return row >= 0 && row < gridSize && column >= 0 && column < gridSize;
     }
 
